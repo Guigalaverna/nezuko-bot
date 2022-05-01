@@ -1,4 +1,6 @@
 import { Client, Message, MessageEmbed } from "discord.js";
+import { prisma } from "@lib/prisma";
+
 import languages from "@configurations/languages.json";
 
 export default {
@@ -9,13 +11,37 @@ export default {
   ) {
     const languageOfTheBook = languages.filter(lang => lang.name === args[0]);
     const categorySelected = args[1];
-    const titleOfTheBook = args.slice(2);
+    const titleOfTheBook = args.slice(2).join(" ");
     const book = message.attachments.first();
 
     if (!book?.name?.endsWith(".pdf")) {
       message.reply({
         content: "Apenas livros em PDF por favor ❤️",
       });
+      message.delete();
+      return;
+    }
+
+    if (!languageOfTheBook) {
+      message.reply("Não sei qual é o idioma do material");
+      message.delete();
+      return;
+    }
+
+    if (!categorySelected) {
+      message.reply("Qual é a categoria?");
+      message.delete();
+      return;
+    }
+
+    if (!titleOfTheBook) {
+      message.reply("Todo livro tem um título, esse tem?");
+      message.delete();
+      return;
+    }
+
+    if (!book) {
+      message.reply("Cade o livro?");
       message.delete();
       return;
     }
@@ -27,7 +53,7 @@ export default {
       thumbnail: {
         url: "https://i.redd.it/s6xhbtw4kd881.gif",
       },
-      description: `**💾 Título**: ${titleOfTheBook.join(" ")}
+      description: `**💾 Título**: ${titleOfTheBook}
 
       **✏️ Idioma**: ${languageOfTheBook[0].flag} ${languageOfTheBook[0].name}
 
