@@ -11,9 +11,7 @@ function main() {
   // TODO: initialize discord bot
   // TODO: initialize google drive client
 
-  const DiscordBot = new Discord();
-
-  DiscordBot.init();
+  Discord.init();
 }
 
 main();
