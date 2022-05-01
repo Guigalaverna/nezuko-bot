@@ -1,6 +1,7 @@
 import { Discord } from "@modules/discord";
 import { config } from "dotenv";
 import path from "path";
+import { Modules } from "./modules";
 
 config({
   path: path.join(__dirname, "..", ".env.local"),
@@ -8,10 +9,9 @@ config({
 
 // Orchestrator
 function main() {
-  // TODO: initialize discord bot
-  // TODO: initialize google drive client
+  const modules = new Modules();
 
-  Discord.init();
+  modules.discord.init();
 }
 
 main();
