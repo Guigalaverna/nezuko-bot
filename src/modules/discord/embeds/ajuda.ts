@@ -6,7 +6,7 @@ export const embed = new MessageEmbed({
     name: "😕 Ajudinha",
   },
   thumbnail: {
-    url: "https://c.tenor.com/c5EvySkw_BYAAAAC/nezuko-confused-kimetsu-no-yaiba.gif",
+    url: "https://c.tenor.com/t9Lbd0mHAUsAAAAd/nezuko-demon-slayer.gif",
   },
   description: `Tá perdido? Eu vou te ajudar!\n\n**Comandos**:\n**/upload**: Caso queria enviar um material para a biblioteca.\n**/pesquisar**: Pesquisar algum material da biblioteca.\n**/ajuda**: Mostra essa mensagem linda.\n\nAcho que isso ajuda né?`,
   color: "#D98BBD",

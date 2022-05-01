@@ -6,13 +6,9 @@ export const embed = new MessageEmbed({
     name: "🔎 Busca",
   },
   thumbnail: {
-    url: "https://c.tenor.com/c5EvySkw_BYAAAAC/nezuko-confused-kimetsu-no-yaiba.gif",
+    url: "https://c.tenor.com/t9Lbd0mHAUsAAAAd/nezuko-demon-slayer.gif",
   },
-  description: `Encontrei este livro`,
   color: "#D98BBD",
-  image: {
-    url: "https://pa1.narvii.com/7666/99b242f85f5d07a5c797618664b53d79db5e5986r1-512-288_hq.gif",
-  },
   footer: {
     text: "Assinado por mim ❤️",
   },

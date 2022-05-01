@@ -21,7 +21,7 @@ export function createEmbed({
       name: "✅ Upload concluído",
     },
     thumbnail: {
-      url: "https://i.redd.it/s6xhbtw4kd881.gif",
+      url: "https://c.tenor.com/t9Lbd0mHAUsAAAAd/nezuko-demon-slayer.gif",
     },
     description: `**💾 Título**: ${titleOfTheBook}
 
@@ -32,7 +32,7 @@ export function createEmbed({
     **☑️ Categoria**: ${categorySelected}`,
     color: "#D98BBD",
     image: {
-      url: "https://pa1.narvii.com/7666/99b242f85f5d07a5c797618664b53d79db5e5986r1-512-288_hq.gif",
+      url: "https://c.tenor.com/xBh07rz9GHYAAAAC/nezuko-kamado-nezuko.gif",
     },
     footer: {
       text: "Assinado por mim ❤️",
