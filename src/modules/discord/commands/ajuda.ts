@@ -1,11 +1,11 @@
-import { SlashCommandBuilder } from "@discordjs/builders";
-import { CommandInteraction, MessageEmbed } from "discord.js";
+import { Client, CommandInteraction, Message, MessageEmbed } from "discord.js";
 
 export default {
-  data: new SlashCommandBuilder()
-    .setName("ajuda")
-    .setDescription("Te dá ajudinha do bot"),
-  async execute(int: CommandInteraction) {
+  async execute(
+    client: Client<boolean>,
+    message: Message<boolean>,
+    args: string[]
+  ) {
     const embed = new MessageEmbed({
       title: "Comandos",
       author: {
@@ -24,6 +24,6 @@ export default {
       },
     });
 
-    int.reply({ embeds: [embed] });
+    message.reply({ embeds: [embed] });
   },
 };
