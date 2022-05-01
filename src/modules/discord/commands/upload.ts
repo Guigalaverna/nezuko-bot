@@ -1,5 +1,4 @@
 import { Client, Message, MessageEmbed } from "discord.js";
-import { prisma } from "@lib/prisma";
 
 import languages from "@configurations/languages.json";
 
