@@ -3,6 +3,7 @@ import { Client, Message, MessageEmbed } from "discord.js";
 import languages from "@configurations/languages.json";
 import { downloadFile } from "src/utils/downloadFile";
 import path from "path";
+import { createEmbed } from "../embeds/upload";
 
 export default {
   async execute(
@@ -52,27 +53,11 @@ export default {
         book.url,
         book.name.replace(/\s/g, "_").replace("-", "")
       );
-      const embed = new MessageEmbed({
-        author: {
-          name: "✅ Upload concluído",
-        },
-        thumbnail: {
-          url: "https://i.redd.it/s6xhbtw4kd881.gif",
-        },
-        description: `**💾 Título**: ${titleOfTheBook}
-  
-        **✏️ Idioma**: ${languageOfTheBook[0].flag} ${languageOfTheBook[0].name}
-  
-        **👋 Membro**: ${message.author}
-  
-        **☑️ Categoria**: ${categorySelected}`,
-        color: "#D98BBD",
-        image: {
-          url: "https://pa1.narvii.com/7666/99b242f85f5d07a5c797618664b53d79db5e5986r1-512-288_hq.gif",
-        },
-        footer: {
-          text: "Assinado por mim ❤️",
-        },
+      const embed = createEmbed({
+        authorOfThePost: message.author,
+        categorySelected,
+        languageOfTheBook,
+        titleOfTheBook,
       });
 
       message.reply({ embeds: [embed] });
