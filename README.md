@@ -18,6 +18,7 @@
   - [Search for uploaded books](#2-search-for-uploaded-books)
 - [Technologies](#technologies)
 - [Usage](#usage)
+  - [Prerequisites](#prerequisites)
   - [Add a book](#add-a-book)
   - [Search books](#search-books)
 - [Next features](#next-features)
