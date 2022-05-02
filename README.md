@@ -56,7 +56,7 @@ Before run the bot, you need have Node.js installed in your machine, and run the
   $ git clone https://github.com/Guigalaverna/nezuko-bot.git
   $ cd nezuko-bot
   $ npm install
-  $
+  $ npm run dev
 
 ```
 
