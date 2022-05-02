@@ -41,9 +41,12 @@ export class Discord {
       const command = args.shift()?.toLowerCase(); // get the command and remove it from the args array
 
       try {
-        const commandFile: Command = await import(
-          path.join(__dirname, "commands", `${command}.ts`)
-        ); // get the command file
+        const commandFile: Command = require(path.join(
+          __dirname,
+          "commands",
+          `${command}.ts`
+        )).default; // get the command file
+
         commandFile.execute(client, message, args);
       } catch (err) {
         console.error(err);
