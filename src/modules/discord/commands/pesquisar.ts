@@ -2,7 +2,7 @@ import { Client, Message, MessageAttachment, MessageEmbed } from "discord.js";
 
 import * as fs from "fs";
 import path from "path";
-import { embed } from "../embeds/pesquisar";
+import { Embed } from "../lib/createEmbed";
 
 export default {
   async execute(
@@ -18,6 +18,14 @@ export default {
     const filename = listOfAllBooksAvailable.find(file =>
       file.includes(searchTerm.replace(" ", "_"))
     )!;
+
+    const embed = new Embed({
+      title: "Livro Encontrado",
+      subject: "🔎 Busca",
+      thumbnailUrl: "https://c.tenor.com/t9Lbd0mHAUsAAAAd/nezuko-demon-slayer.gif",
+      description: `O livro foi encontrado!`,
+      bannerUrl: "https://pa1.narvii.com/7666/99b242f85f5d07a5c797618664b53d79db5e5986r1-512-288_hq.gif"
+    })
 
     try {
       const file = fs.readFileSync(
