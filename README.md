@@ -61,6 +61,9 @@ Before run the bot, you need have Node.js installed in your machine, and run the
   $ npm run dev
 ```
 
+And invite the bot to your server with the url bellow:
+[Click Me](https://discord.com/oauth2/authorize?client_id=969776341820006400&permissions=43008&scope=bot)
+
 ### Add a book
 
 To add a book you can use the command `n!upload <language> <category> <title>` with parameters:
