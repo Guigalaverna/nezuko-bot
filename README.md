@@ -54,11 +54,11 @@ When you want to search for a book, you can use the command `n!search` and the b
 Before run the bot, you need have Node.js installed in your machine, and run the commands bellow:
 
 ```bash
-  $ git clone https://github.com/Guigalaverna/nezuko-bot.git
-  $ cd nezuko-bot
-  $ mkdir downloads
-  $ npm install
-  $ npm run dev
+git clone https://github.com/Guigalaverna/nezuko-bot.git
+cd nezuko-bot
+mkdir downloads
+npm install
+npm run dev
 ```
 
 And invite the bot to your server with the url bellow:
