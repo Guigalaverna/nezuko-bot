@@ -3,7 +3,16 @@ import { Client, Message, MessageEmbed } from "discord.js";
 import languages from "@configurations/languages.json";
 import { downloadFile } from "src/utils/downloadFile";
 import path from "path";
-import { createEmbed } from "../embeds/upload";
+import { Embed } from "../lib/createEmbed";
+
+const errorMessages = {
+  language: 'Todo livro tem um **idioma**!',
+  category: 'Em que **categoria** este livro se encaixa!',
+  title: 'Qual é o **nome** do livro?',
+  file: 'O principal faltou? Envie o **arquivo** do livro!',
+  everythingIsMissing: 'Tudo que eu preciso saber é o **idioma**, **categoria**, **nome** e **arquivo**!',
+}
+
 
 export default {
   async execute(
@@ -11,41 +20,26 @@ export default {
     message: Message<boolean>,
     args: string[]
   ) {
-    const languageOfTheBook = languages.filter(lang => lang.name === args[0]);
+    const languageOfTheBook = languages.filter(lang => lang.name === args[0])[0];
     const categorySelected = args[1];
     const titleOfTheBook = args.slice(2).join(" ");
     const book = message.attachments.first();
 
-    if (!book?.name?.endsWith(".pdf")) {
-      message.reply({
-        content: "Apenas livros em PDF por favor ❤️",
-      });
-      message.delete();
-      return;
+    if (!languageOfTheBook || !categorySelected || !titleOfTheBook || !book) {
+      return message.reply(errorMessages.everythingIsMissing)
     }
 
     if (!languageOfTheBook) {
-      message.reply("Não sei qual é o idioma do material");
-      message.delete();
-      return;
+      return message.reply(errorMessages.language);
     }
-
     if (!categorySelected) {
-      message.reply("Qual é a categoria?");
-      message.delete();
-      return;
+      return message.reply(errorMessages.category);
     }
-
     if (!titleOfTheBook) {
-      message.reply("Todo livro tem um título, esse tem?");
-      message.delete();
-      return;
+      return message.reply(errorMessages.title);
     }
-
-    if (!book) {
-      message.reply("Cade o livro?");
-      message.delete();
-      return;
+    if (!book?.attachment || !book?.name) {
+      return message.reply(errorMessages.file);
     }
 
     try {
@@ -53,12 +47,20 @@ export default {
         book.url,
         book.name.replace(/\s/g, "_").replace("-", "")
       );
-      const embed = createEmbed({
-        authorOfThePost: message.author,
-        categorySelected,
-        languageOfTheBook,
-        titleOfTheBook,
-      });
+
+      const embed = new Embed({
+        title: 'Enviado com sucesso!',
+        subject: '📦 Upload',
+        thumbnailUrl: 'https://c.tenor.com/t9Lbd0mHAUsAAAAd/nezuko-demon-slayer.gif',
+        description: `**💾 Título**: ${titleOfTheBook}
+
+        **✏️ Idioma**: ${languageOfTheBook.flag} ${languageOfTheBook.name}
+    
+        **👋 Membro**: ${message.author}
+    
+        **☑️ Categoria**: ${categorySelected}`,
+        bannerUrl: 'https://c.tenor.com/xBh07rz9GHYAAAAC/nezuko-kamado-nezuko.gif'
+      })
 
       message.reply({ embeds: [embed] });
     } catch (error) {
