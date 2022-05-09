@@ -13,8 +13,20 @@ datasource db {
 model Book {
   id         String   @id @default(uuid())
   title      String
-  author     String
   language   String
-  category   String
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
   uploadedAt DateTime @default(now())
+  path       String
+
+  @@map("books")
+}
+
+model Category {
+  id     String  @id @default(uuid())
+  name   String
+  bookId String?
+  books   Book[]
+
+  @@map("categories")
 }
