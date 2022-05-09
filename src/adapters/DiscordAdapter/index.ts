@@ -7,12 +7,16 @@ import { config } from "dotenv";
 import { Client, Intents } from "discord.js";
 
 import path from "path";
+import { DatabaseAdapter } from "../../../@types/adapters/DatabaseAdapter";
 
 config({
   path: path.join(__dirname, "..", "..", "..", ".env"),
 });
 
 export class DiscordAdapter implements BotAdapter {
+  constructor(private databaseAdapter: DatabaseAdapter) {
+    this.databaseAdapter = databaseAdapter;
+  }
   async connect(): Promise<void> {
     const token = process.env.DISCORD_TOKEN!;
     const prefix = process.env.BOT_PREFIX!;
@@ -48,7 +52,7 @@ export class DiscordAdapter implements BotAdapter {
           `${command}.ts`
         )).default; // get the command file
 
-        commandFile.execute(client, message, args);
+        commandFile.execute(client, message, args, this.databaseAdapter);
       } catch (err) {
         console.error(err);
         message.reply("Ocorreu um erro ao executar o comando");

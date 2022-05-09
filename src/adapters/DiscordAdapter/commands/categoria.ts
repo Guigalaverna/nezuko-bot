@@ -1,18 +1,18 @@
+import { DatabaseAdapter } from "../../../../@types/adapters/DatabaseAdapter";
 import { Client, Message } from "discord.js";
-import { PrismaAdapter } from "src/adapters/PrismaAdapter";
 import { Embed } from "../lib/createEmbed";
 
 export default {
   async execute(
     client: Client<boolean>,
     message: Message<boolean>,
-    args: string[]
+    args: string[],
+    databaseAdapter: DatabaseAdapter
   ) {
-    const prismaAdapter = new PrismaAdapter();
     switch (args[0]) {
       case "pesquisar":
         try {
-          const searchedCategory = await prismaAdapter.findCategoryByName(
+          const searchedCategory = await databaseAdapter.findCategoryByName(
             args[1]
           );
           const searchedCategoryEmbed = new Embed({
@@ -32,7 +32,7 @@ export default {
         }
 
       case "criar":
-        const createdCategory = await prismaAdapter.createCategory({
+        const createdCategory = await databaseAdapter.createCategory({
           name: args[1],
         });
 

@@ -3,7 +3,7 @@ import { Client, Message } from "discord.js";
 import languages from "@configurations/languages.json";
 import { downloadFile } from "src/utils/downloadFile";
 import { Embed } from "../lib/createEmbed";
-import { PrismaAdapter } from "src/adapters/PrismaAdapter";
+import { DatabaseAdapter } from "../../../../@types/adapters/DatabaseAdapter";
 
 const errorMessages = {
   language: "Todo livro tem um **idioma**!",
@@ -16,7 +16,8 @@ export default {
   async execute(
     client: Client<boolean>,
     message: Message<boolean>,
-    args: string[]
+    args: string[],
+    databaseAdapter: DatabaseAdapter
   ) {
     const languageOfTheBook = languages.filter(
       lang => lang.name === args[0]
@@ -24,7 +25,6 @@ export default {
     const categorySelected = args[1];
     const titleOfTheBook = args.slice(2).join(" ");
     const book = message.attachments.first();
-    const prismaAdapter = new PrismaAdapter();
 
     if (!languageOfTheBook) {
       return message.reply(errorMessages.language);
@@ -61,7 +61,7 @@ export default {
           "https://c.tenor.com/xBh07rz9GHYAAAAC/nezuko-kamado-nezuko.gif",
       });
 
-      await prismaAdapter.createBook({
+      await databaseAdapter.createBook({
         language: languageOfTheBook.name,
         category: categorySelected,
         title: titleOfTheBook,
