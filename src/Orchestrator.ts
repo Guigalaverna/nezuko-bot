@@ -5,22 +5,23 @@ import chalk from "chalk";
 
 export class Orchestrator {
   constructor(
-    // private botAdapter: BotAdapter,
+    private botAdapter: BotAdapter,
     private loggerAdapter: LoggerAdapter
   ) {
-    // this.botAdapter = botAdapter;
+    this.botAdapter = botAdapter;
     this.loggerAdapter = loggerAdapter;
   }
 
   public async start() {
-    const { loggerAdapter } = this;
+    const { loggerAdapter, botAdapter } = this;
+    console.log("");
 
     async function startBotAdapter() {
-      // await botAdapter.connect();
+      await botAdapter.connect();
       loggerAdapter.print("[Bot Adapter] Started.", "bold", "green");
     }
 
-    loggerAdapter.print("[Orchestrator] Starting adapters.", "bold", "red");
+    loggerAdapter.print("[Orchestrator] Starting adapters.", "bold", "green");
     await startBotAdapter();
   }
 }
