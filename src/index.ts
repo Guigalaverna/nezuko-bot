@@ -1,11 +1,13 @@
-import { LoggerAdapter } from "./adapters/LoggerAdapter";
+import { DiscordAdapter } from "./adapters/DiscordAdapter";
+import { ChalkAdapter } from "./adapters/ChalkAdapter";
+
 import { Orchestrator } from "./Orchestrator";
 
 function main() {
-  const loggerAdapter = new LoggerAdapter();
-  // const botAdapter = new BotAdapter();
+  const chalkAdapter = new ChalkAdapter();
+  const discordAdapter = new DiscordAdapter();
 
-  const orchestrator = new Orchestrator(loggerAdapter);
+  const orchestrator = new Orchestrator(discordAdapter, chalkAdapter);
   orchestrator.start();
 }
 
