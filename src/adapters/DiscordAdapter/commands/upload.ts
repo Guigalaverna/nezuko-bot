@@ -3,14 +3,13 @@ import { Client, Message } from "discord.js";
 import languages from "@configurations/languages.json";
 import { downloadFile } from "src/utils/downloadFile";
 import { Embed } from "../lib/createEmbed";
+import { PrismaAdapter } from "src/adapters/PrismaAdapter";
 
 const errorMessages = {
   language: "Todo livro tem um **idioma**!",
   category: "Em que **categoria** este livro se encaixa!",
   title: "Qual é o **nome** do livro?",
   file: "O principal faltou? Envie o **arquivo** do livro!",
-  everythingIsMissing:
-    "Tudo que eu preciso saber é o **idioma**, **categoria**, **nome** e **arquivo**!",
 };
 
 export default {
@@ -25,10 +24,7 @@ export default {
     const categorySelected = args[1];
     const titleOfTheBook = args.slice(2).join(" ");
     const book = message.attachments.first();
-
-    if (!languageOfTheBook || !categorySelected || !titleOfTheBook || !book) {
-      return message.reply(errorMessages.everythingIsMissing);
-    }
+    const prismaAdapter = new PrismaAdapter();
 
     if (!languageOfTheBook) {
       return message.reply(errorMessages.language);
@@ -65,9 +61,21 @@ export default {
           "https://c.tenor.com/xBh07rz9GHYAAAAC/nezuko-kamado-nezuko.gif",
       });
 
+      await prismaAdapter.createBook({
+        language: languageOfTheBook.name,
+        category: categorySelected,
+        title: titleOfTheBook,
+        path: book.name.replace(/\s/g, "_").replace("-", ""),
+      });
+
       message.reply({ embeds: [embed] });
     } catch (error) {
-      console.error(error);
+      // @ts-expect-error
+      if (error.message === "Category not found") {
+        return message.reply("Categoria não encontrada");
+      } else {
+        console.log(error);
+      }
     }
   },
 };
