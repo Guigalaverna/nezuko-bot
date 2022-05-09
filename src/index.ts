@@ -1,17 +1,12 @@
-import { Discord } from "@modules/discord";
-import { config } from "dotenv";
-import path from "path";
-import { Modules } from "./modules";
+import { LoggerAdapter } from "./adapters/LoggerAdapter";
+import { Orchestrator } from "./Orchestrator";
 
-config({
-  path: path.join(__dirname, "..", ".env.local"),
-});
-
-// Orchestrator
 function main() {
-  const modules = new Modules();
+  const loggerAdapter = new LoggerAdapter();
+  // const botAdapter = new BotAdapter();
 
-  modules.discord.init();
+  const orchestrator = new Orchestrator(loggerAdapter);
+  orchestrator.start();
 }
 
 main();
