@@ -1,8 +1,6 @@
 import { LoggerAdapter } from "../@types/adapters/LoggerAdapter";
 import { BotAdapter } from "../@types/adapters/BotAdapter";
 
-import chalk from "chalk";
-
 export class Orchestrator {
   constructor(
     private botAdapter: BotAdapter,
